@@ -1,0 +1,23 @@
+parameters:
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Migrations,Tests,Kernel.php}'
+
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
+    param_converter.controller.api.api.entity.car.common_controller.get_cars_by_filters_param_converter:
+        class: App\ParamConverter\Controller\Api\Api\Entity\Car\CommonController\GetCarsByFiltersParamConverter
+        tags:
+            - { name: request.param_converter, converter: App\ParamConverter\Controller\Api\Api\Entity\Car\CommonController\GetCarsByFiltersParamConverter }
+    param_converter.controller.api.api.entity.car.common_controller.get_last_cars_param_converter:
+        class: App\ParamConverter\Controller\Api\Api\Entity\Car\CommonController\GetLastCarsParamConverter
+        tags:
+            - { name: request.param_converter, converter: App\ParamConverter\Controller\Api\Api\Entity\Car\CommonController\GetLastCarsParamConverter }
